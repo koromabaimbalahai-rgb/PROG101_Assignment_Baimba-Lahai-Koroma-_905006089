@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="2.11">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="MATTHEW JUNIOR BOIMA"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2026-10-14 01:50:22 pm"/>
+        <attribute name="created" value="TUFUVEhFVyBKVU5JT1IgQk9JTUE7REVTS1RPUC01VDQ2N0g4OzIwMjYtMTAtMTQ7MTE6NTQ6MDcgYW07Mzc2OQ=="/>
+        <attribute name="edited" value="TUFUVEhFVyBKVU5JT1IgQk9JTUE7REVTS1RPUC01VDQ2N0g4OzIwMjYtMTAtMTQ7MDE6NTA6MjIgcG07MTszODg0"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="loginOk" type="Boolean" array="False" size=""/>
+            <declare name="choice" type="Integer" array="False" size=""/>
+            <assign variable="choice" expression="0"/>
+            <call expression="loadData()"/>
+            <assign variable="loginOk" expression="checkLogin()"/>
+            <if expression="loginOk == true">
+                <then>
+                    <while expression="choice != 3"/>
+                </then>
+                <else>
+                    <output expression="&quot;Access denied&quot;" newline="True"/>
+                </else>
+            </if>
+            <output expression="&quot;1 Mark Attendance, 2 Student Summary, 3 Exit&quot;" newline="True"/>
+            <input variable="choice"/>
+            <if expression="choice == 1">
+                <then>
+                    <call expression="markAttendance()"/>
+                </then>
+                <else>
+                    <if expression="choice == 2">
+                        <then>
+                            <call expression="studentSummary()"/>
+                        </then>
+                        <else>
+                            <call expression="saveData()"/>
+                        </else>
+                    </if>
+                </else>
+            </if>
+            <output expression="&quot;Goodbye&quot;" newline="True"/>
+        </body>
+    </function>
+    <function name="assignmentGrade" type="String" variable="">
+        <parameters>
+            <parameter name="avg" type="Real" array="False"/>
+        </parameters>
+        <body>
+            <if expression="avg &gt;= 80">
+                <then>
+                    <output expression="&quot;A&quot;" newline="True"/>
+                </then>
+                <else>
+                    <if expression="avg &gt;= 70">
+                        <then>
+                            <output expression="&quot;B&quot;" newline="True"/>
+                        </then>
+                        <else>
+                            <if expression="avg &gt;= 60">
+                                <then>
+                                    <output expression="&quot;C&quot;" newline="True"/>
+                                </then>
+                                <else>
+                                    <if expression="avg &gt;= 50">
+                                        <then>
+                                            <output expression="&quot;D&quot;" newline="True"/>
+                                        </then>
+                                        <else>
+                                            <output expression="&quot;F&quot;" newline="True"/>
+                                        </else>
+                                    </if>
+                                </else>
+                            </if>
+                        </else>
+                    </if>
+                </else>
+            </if>
+        </body>
+    </function>
+    <function name="calcAttendance" type="Real" variable="present / total * 100">
+        <parameters>
+            <parameter name="id" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="present" type="Integer" array="False" size=""/>
+            <declare name="total" type="Integer" array="False" size=""/>
+            <assign variable="present" expression="18"/>
+            <assign variable="total" expression="20"/>
+        </body>
+    </function>
+    <function name="calcAverage" type="Real" variable="65">
+        <parameters>
+            <parameter name="id" type="Real" array="False"/>
+        </parameters>
+        <body/>
+    </function>
+    <function name="checkLogin" type="Boolean" variable="ok">
+        <parameters/>
+        <body>
+            <declare name="user" type="String" array="False" size=""/>
+            <declare name="ok" type="Boolean" array="False" size=""/>
+            <declare name="pwd" type="String" array="False" size=""/>
+            <output expression="&quot;Username and password&quot;" newline="True"/>
+            <input variable="user"/>
+            <input variable="pwd"/>
+            <assign variable="ok" expression="user == &quot;admin&quot; &amp;&amp; pwd == &quot;1234&quot;"/>
+        </body>
+    </function>
+    <function name="findStudent" type="Boolean" variable="id &gt; 0 &amp;&amp; id &lt;= 100">
+        <parameters>
+            <parameter name="id" type="Integer" array="False"/>
+        </parameters>
+        <body/>
+    </function>
+    <function name="loadData" type="None" variable="">
+        <parameters/>
+        <body>
+            <output expression="&quot;Data loaded&quot;" newline="True"/>
+        </body>
+    </function>
+    <function name="markAttendance" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="className" type="String" array="False" size=""/>
+            <declare name="dataText" type="String" array="False" size=""/>
+            <declare name="status" type="String" array="False" size=""/>
+            <declare name="numStudents" type="Integer" array="False" size=""/>
+            <declare name="i" type="Integer" array="False" size=""/>
+            <declare name="totalDays" type="Integer" array="False" size=""/>
+            <declare name="daysPresent" type="Integer" array="False" size=""/>
+            <output expression="&quot;Enter class and data&quot;" newline="True"/>
+            <input variable="className"/>
+            <input variable="dataText"/>
+            <input variable="numStudents"/>
+            <assign variable="i" expression="i"/>
+            <assign variable="totalDays" expression="0"/>
+            <assign variable="daysPresent" expression="0"/>
+            <while expression="i &lt;= numStudents">
+                <input variable="status"/>
+            </while>
+            <while expression="status != &quot;P&quot; &amp;&amp; status != &quot;A&quot;">
+                <output expression="&quot;Enter P or A&quot;" newline="True"/>
+                <input variable="status"/>
+            </while>
+            <assign variable="totalDays" expression="totalDays + 1"/>
+            <if expression="status == &quot;P&quot;">
+                <then>
+                    <assign variable="daysPresent" expression="daysPresent + 1"/>
+                </then>
+                <else/>
+            </if>
+            <assign variable="i" expression="i + 1"/>
+            <call expression="saveAttendence()"/>
+        </body>
+    </function>
+    <function name="saveAttendence" type="None" variable="">
+        <parameters/>
+        <body>
+            <output expression="&quot;Attendence saved&quot;" newline="True"/>
+        </body>
+    </function>
+    <function name="saveData" type="None" variable="">
+        <parameters/>
+        <body>
+            <output expression="&quot;Datasaved&quot;" newline="True"/>
+        </body>
+    </function>
+    <function name="studentSummary" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="studentID" type="Integer" array="False" size=""/>
+            <declare name="found" type="Boolean" array="False" size=""/>
+            <declare name="attendancePct" type="Real" array="False" size=""/>
+            <declare name="average" type="Real" array="False" size=""/>
+            <declare name="grade" type="String" array="False" size=""/>
+            <output expression="&quot;Enter student ID&quot;" newline="True"/>
+            <input variable="studentID"/>
+            <assign variable="found" expression="findStudent(studentID)"/>
+            <if expression="found == true">
+                <then>
+                    <assign variable="attendancePct" expression="calcAttendance(studentID)"/>
+                    <assign variable="average" expression="calcAverage(studentID)"/>
+                    <assign variable="grade" expression="assignGrade(average)"/>
+                </then>
+                <else>
+                    <output expression="&quot;No student found&quot;" newline="True"/>
+                </else>
+            </if>
+            <if expression="attendancePct &lt; 75 || average &lt; 50">
+                <then>
+                    <output expression="&quot;ALERT: at risk&quot;" newline="True"/>
+                </then>
+                <else/>
+            </if>
+            <output expression="&quot;Student &quot; &amp; studentID &amp; &quot; Attendance &quot; &amp; attendancePct &amp; &quot;% Average &quot; &amp; average &amp; &quot; Grade &quot; &amp; grade" newline="True"/>
+        </body>
+    </function>
+</flowgorithm>
